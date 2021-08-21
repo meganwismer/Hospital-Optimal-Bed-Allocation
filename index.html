@@ -1,1 +1,307 @@
+<!DOCTYPE html>
+<html>
+    
+<head>
+    <Title>Optimizing Costs</Title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content = "width=device-width, initial-scale = 1">
+</head>
+    
+<div class = "header">
+    <h2>Optimal Bed Allocation in Hospitals</h2>
+    <p> A Model Created by Megan Wismer</p>
+    <p class = "blurb">This model was inspired by the absence of available beds during the COVID-19 pandemic. Using Microsoft Excel and Solver, it identifies the optimal number of beds in each unit, allowing the hospital to handle variabilities in patient arrivals and lengths of stay. On the left, users can find a set of instructional videos for setting up Solver and the Input Sheet. On the right, users can download the model and watch an instructional video to run it.</p>
+</div>
+<style>
+    .header{
+        color: #6B4D57;
+        font-family: "Arial";
+        text-align: center;
+        padding: 50px;
+        background-image: linear-gradient(to right, #DDC8C4, #EFF9F0);
+        border-left: 15px solid #6B4D57;
+        border-right: 15px solid #6B4D57;
+        border-top: 15px solid #6B4D57;
+    }
+    
+    .blurb{
+        text-align:center;
+        padding: 30px 132px 0px;
+    }
+    
+    a:hover{
+        cursor: pointer;
+    }
+    
+    .IntroVideo video{
+        display: block;
+        margin: auto;
+        padding-bottom: 20px;
+        padding-top: 0px;
+    }
+    
+    .IntroVideo{
+        color: #13070C;
+        font-family: "Arial";
+        text-align: center;
+        padding: 0px 20px;
+        background-image: linear-gradient(to right, #DDC8C4, #EFF9F0);
+        border-left: 15px solid #6B4D57;
+        border-right: 15px solid #6B4D57;
+        border-top: 15px solid #6B4D57;
+    }
+    
+</style>
+    
+<div class = "IntroVideo">
+    <h4>Introductory Video</h4>
+    <p>The following video gives an introduction into the model and inputs needed.</p>
+    <video width = "320" height = "240" controls>
+        <source src="IntroVideo.mp4" type = video/mp4>
+    </video>
+</div>
 
+<div class = "row">
+    <div class = "side">
+        <h4>Installing Solver for Mac Users</h4>
+        <video width = "320" height = "240" controls>
+            <source src = "SolverMac.mp4" type = video/mp4>
+        </video>
+        
+        <h4>Installing Solver for Microsoft Users</h4>
+        <video width = "320" height = "240" controls>
+            <source src = "SolverWindows.mp4" type = video/mp4>
+        </video>
+        
+        <h4>Gathering Inputs and the Input Sheet File</h4>
+        <p>Before using the model, users need the following information: unit names, number of beds, average length of stay per person, number of daily external arrivals, daily cost per bed, daily cost of waiting, and a departure matrix. An explanation of the inputs can be found in the section labelled 
+            <a href="#needed" class = "input_needed"><b>Inputs Needed to Run the Model.</b></a>
+        Once this information is gathered, users can download the excel file labelled
+            <a href="Input_Sheet.xlsx" download class = "input_sheet"><b>Input Sheet.xlsx</b></a>, as well as watch the accompanying videos, which show the proper way to set up this excel file.</p>
+        <p><a href="Input_Sheet.xlsx" download class = "input_sheet"><b>Input Sheet.xlsx</b></a></p>
+        <p><a href="Example_Input_Sheet.xlsx" download class = "example_sheet"><b>Example Input Sheet.xlsx</b></a></p>
+        <h4>Input Sheet Instructional Video</h4>
+        <p>The video below shows users how to properly set up the first sheet of the file Input Sheet.xlsx, which contains the unit names, as well as each unit's number of beds, average length of stay per patient, number of daily external arrivals, daily cost per bed, and daily cost of waiting.</p>
+        <video width = "320" height = "240" controls>
+            <source src="Input_Video_1.mp4" type = video/mp4>
+        </video>
+        <h4>Departure Matrix Instructional Video</h4>
+        <p>The video below shows users how to properly set up the second sheet of the file Input Sheet.xlsx, which contains the departure matrix. The departure matrix shows the percentage of patients leaving one unit and entering another.</p>
+        <video width = "320" height = "240" controls>
+            <source src="Input_Video_2.mp4" type = video/mp4>
+        </video>
+        <p></p>
+    </div>
+    <div class = "main"> 
+        <p>The Bed Allocation Model was created by Megan Wismer under the supervision of Dr. Felipe Rodrigues and Dr. Camila de Souza. It uses VBA and the queueing network theories proposed in the textbook Introduction to Operations Management, by Hillier and Liebermann<sup>1</sup>. It is a free online tool that can be used by hospitals to find their optimal bed allocation. The model can be downloaded below and needs an Input Sheet to be uploaded into it to run. On the left you can find instructional videos on how to set up the Input Sheet.</p>
+        <p><a class = "model" href="Bed_Allocation_Model.xlsm"><b>Bed Allocation Model.xlsm</b></a></p>
+        <p><i>NOTE: The model must be saved as Bed_Allocation_Model.xlsm for the model to work. If you download it multiple times, this may change, so ensure that the title is correct.</i></p>
+        <h4>How the Model Works</h4>
+        <p>The model uses queueing theory to estimate various performance metrics of the hospital. Using the value found for the average number of patients waiting to enter a unit, the model predicts the cost of waiting. It also finds the costs of beds, and uses these inputs to find the total expected cost per day of the hospital. The model then runs Solver to find the optimal number of beds in the hospital that minimizes the total cost.</p>
+        <p>The optimal bed allocation is a suggestion, as it does not consider space constraints that exist within the hospital.</p>
+        <h4>Model Outputs</h4>
+        
+        <p><i>Original and Optimal Comparison</i></p>
+        <ul>
+            <li>Compares the performance metrics and costs for the original and optimal bed allocation.</li>
+            <li>Performance Metrics:
+                <ul>
+                <li>Average Length of Unit Queue: identifies the average number of patients waiting to enter a specific unit.</li>
+                <li>Average Length of Stay in Unit Queue: identifies the average time (in days) a patient spends waiting to enter a specific unit.</li>
+                <li>Average Length of Unit: identifies the average number of patients inside the unit and in the unit queue.</li>
+                </ul></li>
+            <li>Costs:
+                <ul>
+                    <li>Expected Cost of Waiting: identifies the expected cost the hospital incurs from the patients waiting to enter a specific unit.</li>
+                    <li>Expected Cost of Beds: identifies the expected cost the hospital incurs from the beds in a specific unit.</li>
+                    <li>Expected Total Cost: identifies the total cost the hospital expects to incur from all units and their costs of waiting and costs of beds.</li>
+                    <li>Note: If there is a negative cost in the original solution, this stems from the fact that the unit does not have enough beds, as the demand for this unit is greater than its capacity, resulting in a queue that is constantly growing.</li>
+                </ul>
+            </li>
+        </ul>
+        
+        <p><i>Daily Costs for Varying Bed Allocation Graph</i></p>
+        <ul>
+            <li>Allows you to pick a specific unit to investigate the changes in costs with different bed allocations.</li>
+            <li>The graph will always contain the bed allocation that has the smallest cost to the hospital.</li>
+            <li>Shows how much additional beds affect the costs the hospital endures.</li>
+        </ul>
+        
+        <p><i>Sensitivity Analysis</i></p>
+        <ul>
+            <li>The costs are varied by 15% to see if the optimal solution is stable.</li>
+            <li>6 different scenarios are used, which can be compared with the original optimal solution.</li>
+            <li>Allows us to see if changes in costs will affect the number of beds in the optimal solution.</li>
+        </ul>
+        
+        <h4>Model Running</h4>
+        <p>The following video will show users how to run the model. Please download the attached file and watch the video if you are having difficulties. The Input Sheet should be set up as directed in the videos on the left, or else the model will not run properly.</p>
+    </div>
+</div>
+    
+<style>
+    * {
+        box-sizing: border-box;
+    }
+    
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+        background-image: linear-gradient(to right, #DDC8C4, #EFF9F0);
+        border: 15px solid #6B4D57;
+    }
+    
+    .side {
+        flex: 35%;
+        padding: 0px 20px;
+        font-family: "Arial";
+        color: #13070C;
+        border-right: 15px solid #6B4D57;
+        background-color: #DDC8C4;
+    }
+    
+    .main {
+        flex: 65%;
+        padding: 0px 20px;
+        font-family: "Arial";
+        color: #13070C;
+        background-color: #EFF9F0;
+    }
+    
+    .side_inputs{
+        font-size: 12px;
+    }
+    
+    .input_needed{
+        color: #3B60E4;
+        text-decoration: underline;
+    }
+    
+    .input_sheet{
+        color: #3B60E4;
+        text-decoration: underline;
+    }
+    
+    .example_sheet{
+        color: #3B60E4;
+        text-decoration: underline;
+    }
+    
+    .model{
+        color: #3B60E4;
+        text-decoration: underline;
+    }
+    
+    sup{
+        font-size: 11px;
+    }
+    
+    .side video{
+        padding-bottom: 20px;
+        padding-top: 0px;
+    }
+</style>
+    
+<a name = "needed">
+<div class = "needed">
+    <h4>Inputs Needed To Run the Model:</h4>
+    <table>
+        <tr>
+            <th>Input Name</th>
+            <th>Input Information</th>
+            <th>Input Unit</th>
+        </tr>
+        <tr>
+            <td>Unit</td>
+            <td>Unit Name or Abbreviation.</td>
+            <td>N/A</td>
+        </tr>
+        <tr>
+            <td>Number of Beds</td>
+            <td>The current number of beds in a specific hospital unit.</td>
+            <td>N/A</td>
+        </tr>
+        <tr>
+            <td>Average Length of Stay</td>
+            <td>The average length of stay of a patient in a specific hospital unit.</td>
+            <td>Days</td>
+        </tr>
+        <tr>
+            <td>Number of External Arrivals</td>
+            <td>The average number of external patient arrivals in a specific hospital unit.</td>
+            <td>Patients/day</td>
+        </tr>
+        <tr>
+            <td>Daily Cost per Bed</td>
+            <td>The total accounting cost per bed in a specific hospital unit.</td>
+            <td>$/day</td>
+        </tr>
+        <tr>
+            <td>Daily Cost of Waiting</td>
+            <td>The total cost of waiting for a bed in a specific hospital unit. If this value is not available, I recommend using the daily cost per bed of the upstream unit. <i>(Note: the upstream unit is the location where most patient arrivals are coming from. Each unit will likely have a different upstream unit.)</i></td>
+            <td>$/day</td>
+        </tr>
+        <tr>
+            <td>Departure Matrix</td>
+            <td>A matrix showing the percentage of patients exiting one hospital unit and entering another. Here, patients exit the column unit and enter the row unit.</td>
+            <td> % </td>
+        </tr>
+    </table>
+    <p> </p>
+</div>
+</a>
+    
+<div class = "contactAuthor">
+    <p>The author can be contacted via email at <b class = "email">mwismer5@uwo.ca</b></p>
+    <p>1. Hillier, Frederick, and Gerald Liebermann. Introduction to Operations Research. McGraw-Hill Education, 2000.</p>
+</div>
+    
+<style>
+    .needed{
+        overflow: hidden;
+        padding: 0px 20px;
+        font-family: "Arial";
+        color: #13070C;
+        background-image: linear-gradient(to right, #DDC8C4, #EFF9F0);
+        text-align: center;
+        border-left: 15px solid #6B4D57;
+        border-right: 15px solid #6B4D57;
+        border-bottom: 15px solid #6B4D57;
+    }
+    
+    table, th, td{
+        border: 3px solid black;
+        background-color: #EFF9F0;
+    }
+    
+    table{
+        border-collapse: collapse;
+        width: 75%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    th, td {
+        padding: 10px;
+    }
+    
+    .contactAuthor{
+        color: #13070C;
+        overflow: hidden;
+        padding: 0px 20px;
+        font-family: "Arial";
+        font-size: 11px;
+        border-left: 15px solid #6B4D57;
+        border-right: 15px solid #6B4D57;
+        border-bottom: 15px solid #6B4D57;
+        background-image: linear-gradient(to right, #DDC8C4, #EFF9F0);
+    }
+    
+    .email{
+        color: #3B60E4;
+        text-decoration: underline; 
+    }
+</style>
+    
+    
+</html>
